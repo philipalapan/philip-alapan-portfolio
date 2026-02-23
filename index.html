@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Philip Alapan Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ADD-ON: SEO -->
+  <meta name="description" content="Philip Alapan - Junior Web Developer Portfolio">
+  <meta name="keywords" content="web developer, portfolio, html, css, javascript, vue">
+  <meta name="author" content="Philip Alapan">
+
+  <!-- ADD-ON: Favicon -->
+  <link rel="icon" href="favicon.ico">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+
+  <div id="app">
+
+    <!-- Header -->
+    <header>
+      <h1>Philip Alapan Portfolio</h1>
+      <p>Junior Web Developer</p>
+
+      <button class="dark-toggle" @click="toggleDark">
+        {{ darkMode ? '☀️' : '🌙' }}
+      </button>
+
+      <!-- Navigation -->
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#job-application-tracker">Job Application Tracker</a>
+        <a href="#paus-perfume-shop">Paus Perfume Shop</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+      <!-- Profile Image -->
+      <img src="https://i.imgur.com/FsBTVdD.jpeg" class="profile-img" alt="Philip Alapan">
+
+      <h2>Hello, I'm Philip Alapan 👋</h2>
+      <p class="typing">{{ typingText }}</p>
+      <p>Building clean, responsive, and functional web applications.</p>
+
+      <button @click="scrollTo('projects')">View My Projects</button>
+
+      <a href="Philip_Alapan_Junior_Web_Developer_Resume.pdf" class="btn" download>Download Resume</a>
+    </section>
+
+    <!-- Job Application Tracker Section -->
+    <section id="job-application-tracker">
+      <h2>Job Application Tracker</h2>
+      <p>This is the Job Application Tracker project, which helps you track job applications and their status.</p>
+      <a href="job-application-tracker/index.html" target="_blank">View Job Application Tracker</a> <!-- Link to Job Tracker -->
+    </section>
+
+    <!-- Paus Perfume Shop Section -->
+    <section id="paus-perfume-shop">
+      <h2>Paus Perfume Shop</h2>
+      <p>This is the Paus Perfume Shop project, an e-commerce platform for selling perfumes.</p>
+      <a href="paus-perfume-shop/index.html" target="_blank">View Paus Perfume Shop</a> <!-- Link to Paus Perfume Shop -->
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <h2>My Projects</h2>
+      <p>Total Projects: {{ projects.length }}</p>
+
+      <div class="project-grid">
+        <div class="project-card" v-for="p in projects" :key="p.title">
+          <!-- Project Image -->
+          <img :src="p.image" class="project-img" alt="Project Image">
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.desc }}</p>
+          <ul>
+            <li v-for="f in p.features" :key="f">{{ f }}</li>
+          </ul>
+          <p class="tech">{{ p.tech }}</p>
+          <div class="project-links">
+            <a :href="p.demo" target="_blank">Live Demo</a>
+            <a :href="p.code" target="_blank">Source Code</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span v-for="s in skills" :key="s">{{ s }}</span>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I am a junior web developer building projects using HTML, CSS, JavaScript, and Vue 3. This portfolio demonstrates hands-on projects, coding skills, and responsive design.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form @submit.prevent="submitContact">
+        <input v-model="contact.name" placeholder="Your Name" required>
+        <input v-model="contact.email" type="email" placeholder="Your Email" required>
+        <textarea v-model="contact.message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Built with Vue 3 • © 2026 PA</p>
+      <a href="https://github.com/" target="_blank">GitHub</a> | <a href="https://linkedin.com/" target="_blank">LinkedIn</a>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" @click="scrollToTop">
+      Back to Top
+    </button>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
