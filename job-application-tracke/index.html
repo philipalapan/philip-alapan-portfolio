@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Philip Alapan Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Chart.js CDN for Job Tracker -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ===== Base Styles ===== */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body { font-family:'Inter',sans-serif; background:#f5f3ff; color:#1f2937; line-height:1.6; }
+
+.container { max-width:1000px; margin:auto; padding:20px; }
+
+header { text-align:center; margin-bottom:40px; }
+header h1 { color:#6d28d9; font-size:2.5rem; }
+header p { color:#4b5563; font-size:1.2rem; }
+
+nav { display:flex; justify-content:center; gap:20px; margin-bottom:40px; }
+nav a { text-decoration:none; color:#6d28d9; font-weight:600; }
+nav a:hover { text-decoration:underline; }
+
+section { margin-bottom:50px; }
+
+h2 { color:#4c1d95; margin-bottom:20px; font-size:1.8rem; }
+
+button { cursor:pointer; border:none; border-radius:8px; padding:10px 20px; font-weight:600; background:#6d28d9; color:#fff; transition:0.3s; }
+button:hover { background:#5b21b6; }
+
+.projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+
+.project-card { background:#fff; padding:20px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between; }
+.project-card h3 { margin-bottom:10px; color:#4c1d95; }
+.project-card p { flex-grow:1; margin-bottom:15px; }
+.project-card a { text-align:center; display:block; text-decoration:none; margin-top:auto; }
+
+.skills { display:flex; flex-wrap:wrap; gap:10px; }
+.skill { background:#ede9fe; color:#4c1d95; padding:8px 12px; border-radius:8px; font-weight:600; }
+
+.contact a { color:#6d28d9; text-decoration:none; font-weight:600; }
+.contact a:hover { text-decoration:underline; }
+
+/* ===== Job Tracker Specific ===== */
+.table-wrapper { overflow-x:auto; margin-top:10px; }
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,0.1); }
+th, td { padding:12px; text-align:left; }
+th { background:#ede9fe; color:#4c1d95; }
+tr:nth-child(even) { background:#f9fafb; }
+tr.highlight { background:#fef3c7; transition: background 0.3s; }
+
+.status { font-weight:600; }
+.status.applied { color:#2563eb; }
+.status.interview { color:#d97706; }
+.status.offered { color:#16a34a; }
+.status.rejected { color:#dc2626; }
+
+.action-btn { padding:6px 10px; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
+.edit { background:#fde68a; }
+.delete { background:#fecaca; }
+
+#pieChart {
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  max-width:500px;
+  margin:20px auto 0 auto;
+}
+
+#feedback { font-weight:600; margin-bottom:15px; opacity:0; transition: opacity 0.5s ease-in-out; }
+#feedback.show { opacity:1; }
+
+@media(max-width:768px){
+  table, thead, tbody, th, td, tr { display:block; }
+  th { display:none; }
+  td { padding:10px; border-bottom:1px solid #eee; }
+}
+
+/* ===== Dark Mode ===== */
+body.dark-mode { background:#1f2937; color:#f5f3f3; }
+body.dark-mode table { background:#374151; color:#f5f3f3; }
+body.dark-mode th { background:#4b5563; color:#f5f3f3; }
+body.dark-mode tr:nth-child(even) { background:#4b5563; }
+body.dark-mode .project-card { background:#374151; color:#f5f3f3; }
+body.dark-mode .skill { background:#6b21a8; color:#fff; }
+body.dark-mode #pieChart { background:#374151; }
+body.dark-mode button { background:#6b21a8; }
+body.dark-mode button:hover { background:#4c1d95; }
+
+/* ===== Upcoming Highlight ===== */
+tr.upcoming { background:#fef3c7 !important; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<header>
+  <h1>Philip Alapan</h1>
+  <p>Junior Web Developer | Building clean & functional web apps</p>
+  
+</header>
+
+<nav>
+  <a href="#projects">Projects</a>
+  <a href="#skills">Skills</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ===== Projects Section ===== -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="project-card">
+      <h3>📋 Job Application Tracker</h3>
+      <p>A web-based tracker to add, edit, delete, search, and filter job applications with persistent storage and visual stats.</p>
+      <a href="#jobTrackerDemo"><button>View Demo</button></a>
+    </div>
+    <div class="project-card">
+      <h3>💻 Simple E-commerce Demo</h3>
+      <p>A small online shop interface with product listing, add to cart, and simple filtering functionality.</p>
+      <a href="#"><button>View Demo</button></a>
+    </div>
+    <div class="project-card">
+      <h3>📝 Portfolio Website</h3>
+      <p>Personal portfolio built with HTML, CSS, and JavaScript showcasing projects, skills, and contact info.</p>
+      <a href="#"><button>View Demo</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Skills Section ===== -->
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="skills">
+    <span class="skill">HTML</span>
+    <span class="skill">CSS</span>
+    <span class="skill">JavaScript</span>
+    <span class="skill">Vue.js</span>
+    <span class="skill">Git</span>
+    <span class="skill">Responsive Design</span>
+  </div>
+</section>
+
+<!-- ===== About Section ===== -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>Hi, I’m Philip — a Junior Web Developer passionate about building clean, responsive, and functional web applications. I enjoy solving problems and turning ideas into interactive projects.</p>
+</section>
+
+<!-- ===== Contact Section ===== -->
+<section id="contact">
+  <h2>Contact</h2>
+  <p class="contact">
+    Email: <a href="mailto:Philipalapan89@gmail.com">Philipalapan89@gmail.com</a> | 
+    GitHub: <a href="https://github.com/philipalapan" target="_blank">github.com/philipalapan</a> | 
+    LinkedIn: <a href="https://linkedin.com/in/philipalapan" target="_blank">linkedin.com/in/philipalapan</a>
+  </p>
+  <button onclick="window.location.href='Philip_Alapan_Resume.pdf'">Download Resume</button>
+</section>
+
+<!-- ===== Embedded Job Tracker Demo ===== -->
+<section id="jobTrackerDemo">
+  <h2>Job Application Tracker Demo</h2>
+
+  <!-- STATS -->
+  <div id="stats" class="stats">
+    <div>Total: <strong id="total">0</strong></div>
+    <div>Applied: <strong id="applied">0</strong></div>
+    <div>Interview: <strong id="interview">0</strong></div>
+    <div>Offered: <strong id="offered">0</strong></div>
+    <div>Rejected: <strong id="rejected">0</strong></div>
+  </div>
+
+  <!-- FEEDBACK -->
+  <p id="feedback"></p>
+
+  <!-- SEARCH, FILTER & SORT -->
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search company or position">
+    <select id="filterStatus">
+      <option value="All">All Status</option>
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Offered">Offered</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <select id="sortBy">
+      <option value="dateAsc">Date ↑</option>
+      <option value="dateDesc">Date ↓</option>
+      <option value="status">Status</option>
+    </select>
+    <button type="button" onclick="clearAll()">Clear All</button>
+    <button type="button" onclick="exportCSV()">Export CSV</button>
+  </div>
+
+  <!-- FORM -->
+  <form id="jobForm">
+    <h2>Add Job Application</h2>
+    <input type="text" id="company" placeholder="Company Name" required>
+    <input type="text" id="position" placeholder="Position" required>
+    <input type="date" id="date" required>
+    <select id="status">
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Offered">Offered</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <button type="submit">Save Application</button>
+  </form>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Position</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="jobTable"></tbody>
+    </table>
+  </div>
+
+  <!-- PIE CHART -->
+  <canvas id="pieChart"></canvas>
+</section>
+
+</div>
+
+<script>
+// ===== Job Tracker JS =====
+let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+let editIndex = null;
+
+const form = document.getElementById("jobForm");
+const table = document.getElementById("jobTable");
+const companyInput = document.getElementById("company");
+const positionInput = document.getElementById("position");
+const dateInput = document.getElementById("date");
+const statusInput = document.getElementById("status");
+const submitBtn = form.querySelector("button");
+
+const searchInput = document.getElementById("search");
+const filterStatus = document.getElementById("filterStatus");
+const sortBy = document.getElementById("sortBy");
+
+const totalEl = document.getElementById("total");
+const appliedEl = document.getElementById("applied");
+const interviewEl = document.getElementById("interview");
+const offeredEl = document.getElementById("offered");
+const rejectedEl = document.getElementById("rejected");
+
+const feedback = document.getElementById("feedback");
+
+// Pie chart
+const ctx = document.getElementById("pieChart").getContext("2d");
+let pieChart = new Chart(ctx, {
+  type:'pie',
+  data:{
+    labels:['Applied','Interview','Offered','Rejected'],
+    datasets:[{
+      data:[0,0,0,0],
+      backgroundColor:['#2563eb','#d97706','#16a34a','#dc2626']
+    }]
+  },
+  options:{ responsive:true, animation:{duration:800} }
+});
+
+// Smooth feedback
+function showFeedback(message,color='green'){
+  feedback.textContent = message;
+  feedback.style.color = color;
+  feedback.classList.add('show');
+  setTimeout(()=> feedback.classList.remove('show'),2500);
+}
+
+// Update stats and chart
+function updateStats(){
+  const total = jobs.length;
+  const appliedCount = jobs.filter(j=>j.status==='Applied').length;
+  const interviewCount = jobs.filter(j=>j.status==='Interview').length;
+  const offeredCount = jobs.filter(j=>j.status==='Offered').length;
+  const rejectedCount = jobs.filter(j=>j.status==='Rejected').length;
+
+  totalEl.textContent = total;
+  appliedEl.textContent = appliedCount;
+  interviewEl.textContent = interviewCount;
+  offeredEl.textContent = offeredCount;
+  rejectedEl.textContent = rejectedCount;
+
+  pieChart.data.datasets[0].data = [appliedCount, interviewCount, offeredCount, rejectedCount];
+  pieChart.update();
+}
+
+// Render jobs
+function renderJobs(){
+  let html = '';
+  const searchText = searchInput.value.toLowerCase();
+  const filter = filterStatus.value;
+
+  let filteredJobs = jobs.filter(job=>{
+    const matchesSearch = job.company.toLowerCase().includes(searchText) || job.position.toLowerCase().includes(searchText);
+    const matchesStatus = filter==='All' || job.status===filter;
+    return matchesSearch && matchesStatus;
+  });
+
+  // Sorting
+  if(sortBy.value==='dateAsc') filteredJobs.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if(sortBy.value==='dateDesc') filteredJobs.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(sortBy.value==='status') filteredJobs.sort((a,b)=>a.status.localeCompare(b.status));
+
+  const today = new Date();
+
+  filteredJobs.forEach((job,index)=>{
+    const jobDate = new Date(job.date);
+    const isUpcoming = (jobDate - today <= 7*24*60*60*1000) && (jobDate >= today);
+    html += `
+      <tr class="${editIndex===index?'highlight':''} ${isUpcoming?'upcoming':''}">
+        <td>${job.company}</td>
+        <td>${job.position}</td>
+        <td>${job.date}</td>
+        <td><span class="status ${job.status.toLowerCase()}">${job.status}</span></td>
+        <td>
+          <button class="action-btn edit" onclick="editJob(${index})">Edit</button>
+          <button class="action-btn delete" onclick="deleteJob(${index})">Delete</button>
+        </td>
+      </tr>
+    `;
+  });
+
+  table.innerHTML = html;
+  updateStats();
+  localStorage.setItem('jobs',JSON.stringify(jobs));
+}
+
+// Form submit
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!companyInput.value || !positionInput.value || !dateInput.value){
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  const job = { company:companyInput.value, position:positionInput.value, date:dateInput.value, status:statusInput.value };
+  let isUpdate = editIndex !== null;
+
+  if(isUpdate){
+    jobs[editIndex] = job;
+    editIndex = null;
+    submitBtn.textContent = 'Save Application';
+  } else { 
+    jobs.push(job); 
+  }
+
+  form.reset();
+  renderJobs();
+  showFeedback(isUpdate?'Application updated successfully!':'Application saved successfully!',isUpdate?'orange':'green');
+});
+
+// Edit job
+function editJob(index){
+  const job = jobs[index];
+  companyInput.value = job.company;
+  positionInput.value = job.position;
+  dateInput.value = job.date;
+  statusInput.value = job.status;
+  editIndex = index;
+  submitBtn.textContent = 'Update Application';
+  renderJobs(); // highlight edited row
+}
+
+// Delete job
+function deleteJob(index){
+  if(confirm("Delete this application?")){
+    jobs.splice(index,1);
+    renderJobs();
+    showFeedback("Application deleted successfully!","red");
+    if(editIndex===index){ form.reset(); editIndex=null; submitBtn.textContent='Save Application'; }
+  }
+}
+
+// Clear all
+function clearAll(){
+  if(confirm("Clear all job applications?")){
+    jobs=[];
+    editIndex=null;
+    form.reset();
+    renderJobs();
+    showFeedback("All applications cleared!","red");
+  }
+}
+
+// Export CSV
+function exportCSV() {
+  if(jobs.length === 0) { showFeedback("No applications to export","orange"); return; }
+  let csv = "Company,Position,Date,Status\n";
+  jobs.forEach(j => { csv += `${j.company},${j.position},${j.date},${j.status}\n`; });
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'job_applications.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  showFeedback("CSV exported successfully","green");
+}
+
+// Search & filter
+searchInput.addEventListener('input',renderJobs);
+filterStatus.addEventListener('change',()=>{
+  renderJobs();
+  const selected = filterStatus.value;
+  showFeedback(selected==='All'?'Showing all applications':`Filtered by status: ${selected}`,'blue');
+});
+sortBy.addEventListener('change', renderJobs);
+
+
+
+renderJobs();
+</script>
+
+</body>
+</html>
