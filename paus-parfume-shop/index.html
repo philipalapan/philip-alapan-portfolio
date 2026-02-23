@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pau's Perfume Shop | Your Signature Scent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div id="app">
+<header>
+  <h1>Pau's Perfume Shop</h1>
+  <p>Your Scent, Your Signature</p>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#why">Why Choose Us</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#checkout">Checkout</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <h1>Find Your Signature Scent Today! 🌸</h1>
+  <p>Experience the allure of perfumes that match your personality.</p>
+  <div class="hero-buttons">
+    <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Our Scents</button>
+    <button @click="if (!products[0].selectedSize) products[0].selectedSize = products[0].sizes[0]; buyNow(products[0])">Buy Best Seller</button>
+  </div>
+  <p :class="{'sale-ending': saleTime < 60}">⏰ Sale ends in {{ minutes }}:{{ seconds }}</p>
+</section>
+
+<section id="why">
+  <h2>Why Choose Us</h2>
+  <div class="cards">
+    <div class="card fade-in" v-for="c in why" :key="c.title">
+      <h3>{{ c.title }}</h3>
+      <p>{{ c.desc }}</p>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <h2>Our Products</h2>
+  <div class="product-grid">
+    <div class="product fade-in" v-for="p in products" :key="p.name">
+      <div class="badge" v-if="p.badge">{{ p.badge }}</div>
+      <img :src="p.image" :alt="p.name">
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.description }}</p>
+      
+      <div>
+        <button v-for="s in p.sizes" :key="s.label" class="size-btn" :class="{ active: p.selectedSize && p.selectedSize.label === s.label }" @click="p.selectedSize = s">
+          {{ s.label }}
+        </button>
+      </div>
+      
+      <div class="qty" v-if="p.selectedSize">
+        <button @click="p.qty>1 && p.qty--">−</button>
+        <strong>{{ p.qty }}</strong>
+        <button @click="p.qty++">+</button>
+      </div>
+      
+      <p class="price">{{ p.selectedSize ? '₱'+(p.selectedSize.price*p.qty) : 'Select Size' }}</p>
+      
+      <button @click="addToCart(p)" :disabled="!p.selectedSize">Add to Cart</button>
+      <button class="buy-now" @click="buyNow(p)" :disabled="!p.selectedSize">Buy Now</button>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <h2>What Our Customers Say</h2>
+  <div class="cards">
+    <div class="card fade-in" v-for="r in reviews" :key="r.name">
+      <h3>⭐ {{ r.rating }}/5</h3>
+      <p>"{{ r.comment }}"</p>
+      <strong>— {{ r.name }}</strong>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Us</h2>
+  <p>We provide high-quality perfumes that match your personality. Hand-picked scents with love.</p>
+  <p style="opacity:.6;font-size:.9em;margin-top:20px;">Built with Vue 3 • Demo E-commerce Project</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: info@pauscent.com | Phone: +63 912 345 6789</p>
+</section>
+
+<section id="checkout">
+  <h2>Checkout</h2>
+  <ul>
+    <li v-for="item in cart" :key="item.name">{{ item.name }} ({{ item.size }}) × {{ item.qty }}</li>
+  </ul>
+  <form @submit.prevent="placeOrder">
+    <input v-model="checkout.name" placeholder="Name" required>
+    <input v-model="checkout.email" type="email" placeholder="Email" required>
+    <textarea v-model="checkout.address" placeholder="Address" required></textarea>
+    <p><strong>Total: ₱{{ cartTotal }}</strong></p>
+    <button type="submit">Place Order</button>
+  </form>
+</section>
+
+<div class="cart-btn" @click="showCart=true" :title="'Total: ₱'+cartTotal">🛒 {{ cart.length }}</div>
+
+<div class="modal" v-if="showCart" @click.self="showCart=false">
+  <div class="modal-content">
+    <h3>Your Cart</h3>
+    <div v-for="(item,i) in cart" :key="i">
+      {{ item.name }} ({{ item.size }}) × {{ item.qty }} = ₱{{ item.price*item.qty }}
+      <div class="cart-qty">
+        <button @click="decrementCartQty(item)">−</button>
+        <strong>{{ item.qty }}</strong>
+        <button @click="incrementCartQty(item)">+</button>
+      </div>
+      <button @click="removeFromCart(i)">❌</button>
+    </div>
+    <p><strong>Total: ₱{{ cartTotal }}</strong></p>
+  </div>
+</div>
+
+<div class="modal" v-if="showSuccess" @click.self="showSuccess=false">
+  <div class="modal-content" style="text-align:center;">
+    <h3>✅ Order Successful</h3>
+    <p>Your Order ID: <strong>{{ orderId }}</strong></p>
+    <button @click="showSuccess=false">Close</button>
+  </div>
+</div>
+
+<div v-if="showToast" class="toast show">{{ toast }}</div>
+<div id="back-to-top" @click="scrollToTop">⬆ Back to Top</div>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Link to external JS -->
+<script src="app.js"></script>
+</div>
+</body>
+</html>
