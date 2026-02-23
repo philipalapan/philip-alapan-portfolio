@@ -1,0 +1,94 @@
+/* --- GENERAL --- */
+body { font-family: Inter, sans-serif; margin:0; background:#F5F3FF; line-height:1.6; scroll-behavior:smooth;}
+header { background:#6c5ce7; color:white; text-align:center; padding:20px 10px; position:sticky; top:0; z-index:1000; }
+nav a { color:white; margin:0 10px; text-decoration:none; font-weight:600; transition:0.3s; }
+nav a:hover { color:#ffeaa7; }
+section { padding:60px 20px; text-align:center; }
+h1,h2,h3 { margin-bottom:15px; }
+button { cursor:pointer; transition:0.3s; font-family:inherit; overflow:hidden; position:relative; }
+
+/* HERO */
+.hero { background:#6c5ce7; color:white; padding:80px 20px; border-bottom:4px solid #5E35B1; }
+.hero-buttons button { margin:8px; padding:14px 28px; border-radius:10px; font-weight:600; border:none; font-size:1em; }
+.hero-buttons button:hover { background:#5E35B1; color:white; transform:scale(1.05); }
+
+/* SALE COUNTDOWN */
+.hero p.sale-ending { font-size: 1.4em; font-weight: 700; color: #ff4d4d; animation: pulse 1s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* CARDS */
+.cards { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; }
+.card { background:white; padding:25px; border-radius:18px; width:260px; box-shadow:0 5px 20px rgba(0,0,0,0.15); transition: transform 0.3s ease, box-shadow 0.3s ease; text-align:left; }
+.card:hover { transform: translateY(-5px); box-shadow:0 12px 30px rgba(0,0,0,0.25); }
+
+/* PRODUCTS */
+.product-grid { display:flex; flex-wrap:wrap; gap:25px; justify-content:center; }
+.product { background:#fff; width:280px; padding:20px; border-radius:16px; text-align:center; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.product:hover { transform: translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
+
+/* FIXED PRODUCT IMAGE SIZE */
+.product img { width:180px; height:180px; object-fit:cover; border-radius:12px; margin-bottom:12px; transition: transform 0.4s ease; }
+.product:hover img { transform: scale(1.08) rotate(-1deg); }
+
+/* BADGE */
+.badge { position:absolute; top:12px; left:-50px; background:#ff6b6b; color:white; padding:5px 10px; border-radius:8px; font-size:0.85em; font-weight:700; transform: rotate(-20deg); transition: all 0.5s ease; }
+.product:hover .badge { left:12px; }
+
+/* SIZE BUTTONS */
+.size-btn { padding:6px 14px; margin:4px; border:1px solid #7E57C2; border-radius:8px; background:white; color:#7E57C2; font-weight:600; }
+.size-btn.active { background:#7E57C2; color:white; }
+
+/* QUANTITY & PRICE */
+.qty { display:flex; justify-content:center; gap:12px; margin-top:10px; }
+.qty button { width:32px; height:32px; font-size:18px; border-radius:6px; border:1px solid #7E57C2; background:white; color:#7E57C2; }
+.qty button:hover { background:#7E57C2; color:white; }
+.price { font-weight:bold; color:#f5b041; margin-top:8px; font-size:1.1em; }
+
+/* ADD TO CART / BUY NOW */
+button:not([disabled]), .buy-now { margin-top:10px; background:#7E57C2; color:white; padding:10px 16px; border:none; border-radius:8px; font-weight:600; width:120px; }
+button:not([disabled]):hover, .buy-now:hover { background:#5E35B1; transform:scale(1.05); }
+
+/* CHECKOUT */
+#checkout { background:#EDE7F6; }
+#checkout form { max-width:400px; margin:0 auto; text-align:left; }
+#checkout input, #checkout textarea { width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc; }
+#checkout button { width:100%; padding:12px; font-weight:600; border-radius:8px; }
+
+/* CART ICON */
+.cart-btn { position:fixed; bottom:25px; right:25px; background:#f5b041; padding:14px 22px; border-radius:35px; cursor:pointer; font-weight:700; font-size:1em; box-shadow:0 5px 15px rgba(0,0,0,0.2); transition:0.3s; }
+.cart-btn:hover { transform:scale(1.1); }
+
+/* MODAL */
+.modal { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center; padding:15px; }
+.modal-content { background:white; padding:25px; border-radius:16px; max-width:90%; }
+.modal-content button { margin-top:15px; width:100px; }
+
+/* TOAST */
+.toast { position:fixed; bottom:90px; right:25px; background:#7E57C2; color:white; padding:12px 18px; border-radius:10px; font-weight:600; box-shadow:0 5px 15px rgba(0,0,0,0.3); z-index:9999; transform: translateY(50px); opacity:0; transition: all 0.5s ease; }
+.toast.show { transform: translateY(0); opacity:1; }
+
+/* CART QUANTITY ANIMATION */
+.cart-qty strong { display:inline-block; transition: transform 0.2s; }
+.cart-qty strong.animate { transform: scale(1.4); }
+
+/* RIPPLE EFFECT BUTTONS */
+button::after { content: ""; position: absolute; width: 100px; height: 100px; background: rgba(255,255,255,0.3); display: block; border-radius: 50%; transform: scale(0); opacity: 0; pointer-events: none; transition: transform 0.6s, opacity 1s; }
+button:active::after { transform: scale(2); opacity:1; transition:0s; }
+
+/* FADE-IN ANIMATION */
+.fade-in { opacity:0; transform: translateY(20px); transition: all 0.8s ease-out; }
+.fade-in.show { opacity:1; transform: translateY(0); }
+
+/* CONFETTI CANVAS */
+#confetti-canvas { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; }
+
+/* BACK TO TOP */
+#back-to-top { position:fixed; bottom:90px; right:25px; background:#7E57C2; color:white; padding:12px 18px; border-radius:10px; font-weight:600; cursor:pointer; display:none; z-index:9999; box-shadow:0 5px 15px rgba(0,0,0,0.2); transition:0.3s; }
+#back-to-top:hover { transform:scale(1.1); }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .cards, .product-grid { flex-direction:column; align-items:center; }
+  .hero { padding:60px 10px; }
+  nav a { display:block; margin:8px 0; }
+}
