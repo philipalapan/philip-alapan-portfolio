@@ -1,0 +1,158 @@
+/* ===== BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f5f3ff;
+  color: #1f2937;
+  line-height: 1.6;
+  padding: 30px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  color: #6d28d9;
+  margin-bottom: 20px;
+}
+
+.stats,
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+  margin-bottom: 15px;
+  color: #4c1d95;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
+  background: #6d28d9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #5b21b6;
+}
+
+#feedback {
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background: #ede9fe;
+  color: #4c1d95;
+}
+
+tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.status.applied {
+  color: #2563eb;
+}
+
+.status.interview {
+  color: #d97706;
+}
+
+.status.offered {
+  color: #16a34a;
+}
+
+.status.rejected {
+  color: #dc2626;
+}
+
+.action-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit {
+  background: #fde68a;
+}
+
+.delete {
+  background: #fecaca;
+}
+
+@media (max-width: 768px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+  th {
+    display: none;
+  }
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+}
+
